@@ -8,6 +8,7 @@ import StartPage from './StartPage';
 import { ComplaintCont } from './ComplaintCont';
 import { FinalizeSubmissionForm } from './FinalizeSubmissionForm';
 import { RepresentativeForm } from './Representative';
+import ReCAPTCHA from "react-google-recaptcha";
 
 type FormData = {
   //user-info-page
@@ -131,6 +132,7 @@ function App() {
   const [data, setData] = useState(INITIAL_DATA);
   const [showStartPage, setShowStartPage] = useState(true);//
   const [currentStepIndex, setCurrentStepIndex] = useState(0); //
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
 
   function updateFields(fields: Partial<FormData>) {
     setData((prev) => ({ ...prev, ...fields }));
@@ -203,6 +205,12 @@ function App() {
               {currentStepIndex + 1} / {steps.length}
             </div>
             {step}
+            {isLastStep && (
+            <ReCAPTCHA
+              sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+              onChange={(value) => setRecaptchaValue(value)}
+            />
+          )}
             <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end' }}>
               {!isFirstStep && (
                 <Button
@@ -224,7 +232,11 @@ function App() {
               {isLastStep && (
                 <Button
                   type="submit"
-                  style={{ backgroundColor: 'DodgerBlue', color: 'white', fontSize: '15px' }}
+                  disabled={!recaptchaValue}
+                  style={{ backgroundColor: recaptchaValue ? 'DodgerBlue' : 'gray',
+                  color: 'white',
+                  fontSize: '15px',
+                  cursor: recaptchaValue ? 'pointer' : 'not-allowed', }}
                 >
                   Finish
                 </Button>

@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
-
 import React from 'react';
 import { Typography, Grid, TextField, Select, MenuItem, Input, FormControlLabel, Checkbox, Button } from '@mui/material';
+// import ReCAPTCHA from 'react-google-recaptcha';
+
 
 type FinalizeSubmissionFormProps = {
   final_sub_bestTime: string;
@@ -92,7 +93,7 @@ export function FinalizeSubmissionForm({
 
           </Typography>
         </Grid>
-        <Grid item xs={12} style={{ fontFamily: 'Arial, sans-serif', fontSize: '14px', fontStyle: 'italic', marginBottom: '16px' }}>
+        {/* <Grid item xs={12} style={{ fontFamily: 'Arial, sans-serif', fontSize: '14px', fontStyle: 'italic', marginBottom: '16px' }}>
           <FormControlLabel
             control={
               <Checkbox
@@ -103,7 +104,11 @@ export function FinalizeSubmissionForm({
             }
             label="I am not a robot"
           />
-        </Grid>
+                <ReCAPTCHA
+                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                onChange={(value: any) => setIsRecaptchaVerified(true)}
+              />
+        </Grid> */}
       </Grid>
     </div>
   );
